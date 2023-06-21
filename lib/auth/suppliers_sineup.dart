@@ -87,7 +87,7 @@ void signUp()async{
                         'storelogo':storeLogo,
                         'phone':'',
                         'address':'',
-                        'cid':FirebaseAuth.instance.currentUser!.uid
+                        'sid':FirebaseAuth.instance.currentUser!.uid
                       });
                        _formKey.currentState!.reset();
                         setState(() {

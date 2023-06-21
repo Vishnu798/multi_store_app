@@ -18,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool progress = false;
-   CollectionReference customers = FirebaseFirestore.instance.collection('customers');
+   CollectionReference anonymous = FirebaseFirestore.instance.collection('anonymous');
 
   @override
   void initState() {
@@ -177,7 +177,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             label: "Guest",
                             onPressed: () async {
                               await FirebaseAuth.instance.signInAnonymously().whenComplete(()async{
-                                await customers.doc(FirebaseAuth.instance.currentUser!.uid).set({
+                                await anonymous.doc(FirebaseAuth.instance.currentUser!.uid).set({
                         'name':'',
                         'email':'',
                         'profileimage':'',

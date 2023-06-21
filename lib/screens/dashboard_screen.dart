@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_store_app/minor_screen/sub_categ_products.dart';
+import 'package:multi_store_app/minor_screen/visit_store.dart';
 import 'package:multi_store_app/screens/dashboard_components/edit_business.dart';
 import 'package:multi_store_app/screens/dashboard_components/manage_products.dart';
 import 'dart:core';
@@ -28,7 +29,7 @@ List<IconData> icon = [
   Icons.show_chart
 ];
 List navigate = [
-  const MyStore(),
+   VisitStore(suppId: FirebaseAuth.instance.currentUser!.uid),
   const SuppliersOrders(),
   const EditBusiness(),
   const ManageProducts(),

@@ -18,10 +18,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   CollectionReference customers =
       FirebaseFirestore.instance.collection('customers');
+      CollectionReference anonymous =
+      FirebaseFirestore.instance.collection('anonymous');
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: customers.doc(widget.documentId).get(),
+      future: FirebaseAuth.instance.currentUser!.isAnonymous? anonymous.doc(widget.documentId).get():customers.doc(widget.documentId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -122,7 +124,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const CartScreen()));
+                                                   CartScreen(backButton: IconButton(onPressed: (){
+                Navigator.pop(context);
+              }, icon: Icon(Icons.arrow_back,color: Colors.black,)),)));
                                     },
                                   )),
                             ),
@@ -171,7 +175,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const Wishlist()));
+                                                   Wishlist(backButton: IconButton(onPressed: (){
+                                                    Navigator.pop(context);
+                                                   }, icon: Icon(Icons.arrow_back,color: Colors.black,)),)));
                                     },
                                   )),
                             )

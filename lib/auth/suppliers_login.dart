@@ -139,7 +139,7 @@ void logIn()async{
                     ),
                     TextButton(onPressed: (){}, child: const Text("forgot Password?",style: TextStyle(fontSize: 18,fontStyle: FontStyle.italic),)),
                     HaveAccount(haveAccount: "Don't have an account",actionLabel: "Sign up",onPressed: (){
-                      Navigator.pushReplacementNamed(context, '/suppliers_sineup');
+                      Navigator.pushNamed(context, '/suppliers_sineup');
                     },),
                    logInProgress?const CircularProgressIndicator(): AuthMainButton(authButtonLabel: "Login",actionButton: ()async{
                      logIn();

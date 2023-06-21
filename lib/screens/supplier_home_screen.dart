@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_store_app/screens/category.dart';
 import 'package:multi_store_app/screens/dashboard_screen.dart';
 import 'package:multi_store_app/screens/home.dart';
+import 'package:multi_store_app/screens/story_screen.dart';
 import 'package:multi_store_app/screens/upload_products.dart';
 
 class SupplierHomeScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
    List tab = const [
     HomeScreen(),
    CategoryScreen(),
-    Center(child: Text("store screen")),
+    StoryScreen(),
      DashboardScreen(),
     UploadProductScreen()
   

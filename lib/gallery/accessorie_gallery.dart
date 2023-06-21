@@ -1,21 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_store_app/models/product_model.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
-class SubCategProducts extends StatelessWidget {
-  const SubCategProducts({Key? key, required this.subCategName, required this.mainCategName}) : super(key: key);
-    final String subCategName;
-    final String mainCategName;
+import '../models/product_model.dart';
+
+class Accesss extends StatefulWidget {
+  const Accesss({Key? key}) : super(key: key);
+
+  @override
+  State<Accesss> createState() => _AccesssState();
+}
+
+class _AccesssState extends State<Accesss> {
+   final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance.collection('products').where('maincategory', isEqualTo: 'accessories').snapshots();
+
   @override
   Widget build(BuildContext context) {
-   final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance.collection('products').
-   where('maincategory', isEqualTo: mainCategName).where('subcategory',isEqualTo: subCategName). snapshots();
-
-    return Scaffold(
-      appBar: AppBar(title: AppBarTitle(subCategName: subCategName),),
-      body:  StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot>(
       stream: _productsStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -23,7 +25,7 @@ class SubCategProducts extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Text("Loading");
         }
         
         if(snapshot.data!.docs.isEmpty){
@@ -45,21 +47,6 @@ class SubCategProducts extends StatelessWidget {
         
         
       },
-    ),
     );
-  }
-}
-
-class AppBarTitle extends StatelessWidget {
-  const AppBarTitle({
-    Key? key,
-    required this.subCategName,
-  }) : super(key: key);
-
-  final String subCategName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(subCategName,style: const TextStyle(fontFamily: 'Acme',color: Colors.black),));
   }
 }
