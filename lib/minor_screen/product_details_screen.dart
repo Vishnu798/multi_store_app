@@ -8,7 +8,7 @@ import 'package:multi_store_app/widget/snakbar.dart';
 import 'package:provider/provider.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
-
+import 'package:badges/badges.dart' as badges;
 import '../models/product_model.dart';
 import '../provider/cart_provider.dart';
 import '../provider/wish_provider.dart';
@@ -145,7 +145,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   ))
                       ],
                     ),
-                    Text(
+                    Text(widget.prodList['quantity']==0?"Out of stock":
                       '${widget.prodList['quantity']} pieces available in stock',
                       style: TextStyle(
                           fontSize: 16, color: Colors.blueGrey.shade400),
@@ -210,25 +210,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   VisitStore(suppId: widget.prodList['sid'])));
                     },
                     icon: Icon(Icons.shop)),
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CartScreen(
-                                    backButton: IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_back,
-                                          color: Colors.black,
-                                        )),
-                                  )));
-                    },
-                    icon: Icon(Icons.shopping_cart_checkout_outlined)),
+                badges.Badge(
+                  badgeContent: Text(context.watch<Cart>().count.toString()),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen(
+                                      backButton: IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_back,
+                                            color: Colors.black,
+                                          )),
+                                    )));
+                      },
+                      icon: Icon(Icons.shopping_cart_checkout_outlined)),
+                ),
                 TextButton(
-                    onPressed: () {
+                    onPressed: widget.prodList['quantity']==0?null:() {
                       context.read<Cart>().getItems.any((element) =>
                               element.documentId == widget.prodList['prodId'])
                           ? MyMessageHandler.snakBar(
@@ -245,7 +248,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.width * 0.1,
-                      color: Colors.yellow,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: widget.prodList['quantity']==0?Color.fromARGB(255, 248, 237, 142):Colors.yellow,),
                       child: Center(
                           child: Text(
                         "Add to cart",

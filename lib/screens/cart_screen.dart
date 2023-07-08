@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_store_app/minor_screen/place_order_screen.dart';
 import 'package:multi_store_app/minor_screen/sub_categ_products.dart';
 import 'package:multi_store_app/models/cart_model.dart';
 import 'package:multi_store_app/provider/product_cart.dart';
@@ -86,7 +87,9 @@ class _CartScreenState extends State<CartScreen> {
                 Material(
                     color: Colors.yellow,
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed:context.watch<Cart>().totalPrice==0.0?null: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>PlaceOrderScreen()));
+                      },
                       child: const Text("Check Out"),
                     ))
               ],

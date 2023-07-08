@@ -187,7 +187,7 @@ void signUp()async{
                             return "please enter your name";
                           }
                           return null;
-                        },
+                        }, 
                         onChanged: (value) {
                           name=value;
                         },
@@ -256,4 +256,7 @@ extension EmailValidator on String{
     return RegExp(r'[a-zA-Z0-9]+[\.\_\-]*[@][a-zA-Z0-9]{2,}[\.][a-zA-z]{2,3}$').hasMatch(this);
   }
 }
+
+
+
 
