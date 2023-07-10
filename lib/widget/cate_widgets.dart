@@ -13,7 +13,7 @@ class SliderBar extends StatelessWidget {
     return SizedBox(height: MediaQuery.of(context).size.height*0.8,width: MediaQuery.of(context).size.width*0.05,
       child: Container(
     decoration: BoxDecoration(color: Colors.brown.withOpacity(0.2)),
-    child: const RotatedBox(quarterTurns: 3,
+    child:  RotatedBox(quarterTurns: 3,
     child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround, 
       children: [
       Text("<<"),
